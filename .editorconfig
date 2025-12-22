@@ -1,0 +1,18 @@
+# 如果要从更高级别的目录继承 .editorconfig 设置，请删除以下行
+root = true
+
+[*]
+charset = utf-8
+
+[*.cs]
+# 缩进和间距
+indent_size = 4
+indent_style = space
+tab_width = 4
+# 新行首选项
+end_of_line = crlf
+insert_final_newline = false
+
+[*.{html,cshtml,json,css,js,jsx}]
+indent_size = 2
+tab_width = 2

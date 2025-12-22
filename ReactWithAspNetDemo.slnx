@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="reactwithaspnetdemo.client/reactwithaspnetdemo.client.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+  <Project Path="ReactWithAspNetDemo.Server/ReactWithAspNetDemo.Server.csproj" />
+</Solution>
