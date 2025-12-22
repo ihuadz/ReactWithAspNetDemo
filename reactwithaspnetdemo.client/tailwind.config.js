@@ -1,4 +1,9 @@
+const {heroui} = require('@heroui/theme');
 // tailwind.config.js
+  plugins: [heroui()],
+  content: [
+    "./node_modules/@heroui/theme/dist/components/(alert|button|table|ripple|spinner|checkbox|form).js"
+],
 import { heroui } from '@heroui/theme';
 
 /** @type {import('tailwindcss').Config} */

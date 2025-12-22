@@ -5,15 +5,13 @@
       "type": "chrome",
       "request": "launch",
       "name": "localhost (Chrome)",
-      "url": "https://localhost:12387",
-      "webRoot": "${workspaceFolder}"
+      "url": "https://localhost:12387"
     },
     {
       "type": "msedge",
       "request": "launch",
       "name": "localhost (Edge)",
-      "url": "https://localhost:12387",
-      "webRoot": "${workspaceFolder}"
+      "url": "https://localhost:12387"
     }
   ]
 }
