@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "新建配置文件",
+    "Projects": [
+      {
+        "Path": "reactwithaspnetdemo.client\\reactwithaspnetdemo.client.esproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "ReactWithAspNetDemo.Server\\ReactWithAspNetDemo.Server.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

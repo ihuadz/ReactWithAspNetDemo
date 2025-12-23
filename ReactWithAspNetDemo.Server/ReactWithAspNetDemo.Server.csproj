@@ -10,13 +10,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Masuit.Tools.AspNetCore" Version="2025.6.4" />
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy">
       <Version>8.*-*</Version>
     </PackageReference>
+    <PackageReference Include="SqlSugarCore" Version="5.1.4.210" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Hdz.Core\Hdz.Core.csproj" />
     <ProjectReference Include="..\reactwithaspnetdemo.client\reactwithaspnetdemo.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
