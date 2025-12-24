@@ -1,15 +1,13 @@
 using Masuit.Tools.Core.AspNetCore;
-using ReactWithAspNetDemo.Server;
 using SqlSugar;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 配置路由选项（确保全小写）
-builder.Services.Configure<RouteOptions>(options =>
-{
-    options.LowercaseUrls = true;          // 启用小写URL
-    options.LowercaseQueryStrings = true;  // 查询字符串也小写
-});
+builder.Services.AddControllers();
+
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 // 注册sqlsugar
 builder.Services.AddScoped<ISqlSugarClient>(provider =>
@@ -25,18 +23,16 @@ builder.Services.AddScoped<ISqlSugarClient>(provider =>
     return new SqlSugarClient(config);
 });
 
-builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
-
-
 // 自动扫描注册服务
 builder.Services.AutoRegisterServices();
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+// 注册Aura
+builder.AddAuraWeb();
 
 var app = builder.Build();
+
+// 引入Aura
+app.UseAura();
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
@@ -56,6 +52,5 @@ app.MapControllers();
 
 app.MapFallbackToFile("/index.html");
 
-app.UseExceptionHandler();
 
 app.Run();

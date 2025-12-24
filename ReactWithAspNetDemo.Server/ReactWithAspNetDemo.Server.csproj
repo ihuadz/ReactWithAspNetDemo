@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Hdz.Core\Hdz.Core.csproj" />
+    <ProjectReference Include="..\Aura.Shared\Aura.Shared.csproj" />
     <ProjectReference Include="..\reactwithaspnetdemo.client\reactwithaspnetdemo.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>

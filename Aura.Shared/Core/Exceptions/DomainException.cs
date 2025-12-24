@@ -1,4 +1,4 @@
-namespace Hdz.Core.Exceptions
+namespace Aura.Shared.Core.Exceptions
 {
     /// <summary>
     /// 所有主动抛出的业务异常

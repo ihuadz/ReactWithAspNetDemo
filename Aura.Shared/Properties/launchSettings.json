@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Aura.Shared": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:4840;http://localhost:4841"
+    }
+  }
+}

@@ -1,4 +1,4 @@
-namespace Hdz.Core.Models
+namespace Aura.Shared.Core.Models
 {
     [Serializable]
     public class PageResults<T>
