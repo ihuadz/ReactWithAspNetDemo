@@ -5,7 +5,7 @@ namespace Aura.Shared.Logging.Extensions;
 
 public static class LoggingExtensions
 {
-    public static void AddAuraLogging(this IHostApplicationBuilder builder)
+    public static void AddSerilog(this IHostApplicationBuilder builder)
     {
         var isDev = builder.Environment.IsDevelopment();
         // 定义日志模板

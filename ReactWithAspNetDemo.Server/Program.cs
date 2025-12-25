@@ -1,4 +1,3 @@
-using Masuit.Tools.Core.AspNetCore;
 using SqlSugar;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,25 +8,27 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// 注册sqlsugar
-builder.Services.AddScoped<ISqlSugarClient>(provider =>
-{
-    var config = new ConnectionConfig
-    {
-        ConnectionString = builder.Configuration.GetConnectionString("SQLite"),
-        DbType = DbType.Sqlite,
-        IsAutoCloseConnection = true, // 自动释放连接
-        InitKeyType = InitKeyType.Attribute // 通过特性初始化
-    };
-
-    return new SqlSugarClient(config);
-});
-
-// 自动扫描注册服务
-builder.Services.AutoRegisterServices();
 
 // 注册Aura
-builder.AddAuraWeb();
+builder.AddAuraWeb(option =>
+{
+    // 注册ORM
+    option.RegisterDb = (services) =>
+    {
+        services.AddScoped<ISqlSugarClient>(provider =>
+         {
+             var config = new ConnectionConfig
+             {
+                 ConnectionString = builder.Configuration.GetConnectionString("SQLite"),
+                 DbType = DbType.Sqlite,
+                 IsAutoCloseConnection = true, 
+                 InitKeyType = InitKeyType.Attribute 
+             };
+
+             return new SqlSugarClient(config);
+         });
+    };
+});
 
 var app = builder.Build();
 

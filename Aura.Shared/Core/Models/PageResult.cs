@@ -19,6 +19,19 @@ namespace Aura.Shared.Core.Models
 
         public PageResults(
         long total,
+        IEnumerable<T> rows,
+        PageInput pageInput)
+        {
+            this.Rows = rows;
+            this.Total = total;
+            this.PageSize = pageInput.PageSize;
+            this.PageNumber = pageInput.PageNumber;
+
+            ComputeTotalPage();
+        }
+
+        public PageResults(
+        long total,
         long totalPage,
         IEnumerable<T> rows,
         long pageSize = 10,
@@ -56,6 +69,38 @@ namespace Aura.Shared.Core.Models
                 return !@this.GetEnumerator().MoveNext();
             }
             return true;
+        }
+    }
+
+    /// <summary>
+    /// 分页静态工具类
+    /// </summary>
+    public static class PageResults
+    {
+        /// <summary>
+        /// 获取分页数据
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="total"></param>
+        /// <param name="rows"></param>
+        /// <param name="pageInput"></param>
+        /// <returns></returns>
+        public static PageResults<T> ToPagedList<T>(long total, IEnumerable<T> rows, PageInput pageInput)
+        {
+            return new PageResults<T>(total, rows, pageInput);
+        }
+
+        /// <summary>
+        /// 获取分页数据
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="rows"></param>
+        /// <param name="total"></param>
+        /// <param name="pageInput"></param>
+        /// <returns></returns>
+        public static PageResults<T> ToPagedList<T>(this IEnumerable<T> rows, long total,  PageInput pageInput)
+        {
+            return new PageResults<T>(total, rows, pageInput);
         }
     }
 }

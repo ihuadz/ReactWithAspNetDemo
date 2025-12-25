@@ -15,10 +15,13 @@
     "@heroui/system": "^2.4.25",
     "@heroui/table": "^2.2.29",
     "@heroui/theme": "^2.4.25",
+    "@heroui/toast": "^2.0.19",
     "@tailwindcss/vite": "^4.1.18",
+    "axios": "^1.13.2",
     "framer-motion": "^12.23.26",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
+    "swr": "^2.3.8",
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {

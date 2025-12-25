@@ -1,14 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { useReq } from '@/hooks/useReq';
 
 import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell } from '@heroui/table';
 import { Alert } from '@heroui/alert';
 
 function App() {
   const [forecasts, setForecasts] = useState();
+  const { data } = useReq('weatherforecast');
 
   useEffect(() => {
-    populateWeatherData();
-  }, []);
+    if (data) {
+      setForecasts(data);
+    }
+  }, [data]);
 
   const contents =
     forecasts === undefined ? (
@@ -55,14 +60,6 @@ function App() {
       {contents}
     </div>
   );
-
-  async function populateWeatherData() {
-    const response = await fetch('api/weatherforecast');
-    if (response.ok) {
-      const data = await response.json();
-      setForecasts(data);
-    }
-  }
 }
 
 export default App;

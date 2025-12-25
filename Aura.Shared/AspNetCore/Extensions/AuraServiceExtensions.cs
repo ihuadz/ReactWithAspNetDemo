@@ -1,5 +1,8 @@
 using Aura.Shared.AspNetCore.ExceptionHandlers;
+using Aura.Shared.AspNetCore.Extensions;
 using Aura.Shared.Logging.Extensions;
+using Masuit.Tools.Core.AspNetCore;
+using Microsoft.Extensions.Options;
 using System.Text.Json;
 
 #pragma warning disable IDE0130
@@ -9,12 +12,21 @@ namespace Microsoft.Extensions.DependencyInjection;
 public static class AuraServiceExtensions
 {
     /// <summary>
-    /// 一键集成 Aura 核心服务：日志分流、异常处理、JSON小驼峰
+    /// 一键集成 Aura 核心服务
     /// </summary>
-    public static void AddAuraWeb(this WebApplicationBuilder builder)
+    public static void AddAuraWeb(this WebApplicationBuilder builder, Action<AuraWebOptions>? setupAction = null)
     {
+        var options = new AuraWebOptions();
+        setupAction?.Invoke(options);
+
+        // 自动扫描注册服务
+        builder.Services.AutoRegisterServices();
+
         // 注册日志
-        builder.AddAuraLogging();
+        builder.AddSerilog();
+
+        // 选择注册数据库服务
+        options.RegisterDb?.Invoke(builder.Services);
 
         // 注册全局异常
         builder.Services.AddExceptionHandler<GlobalExceptionHandler>();

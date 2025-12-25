@@ -1,4 +1,6 @@
 using Aura.Shared.Core.Exceptions;
+using Aura.Shared.Core.Models;
+using Masuit.Tools.Models;
 using Microsoft.AspNetCore.Mvc;
 using ReactWithAspNetDemo.Server.Models.Entities;
 using SqlSugar;
@@ -10,13 +12,14 @@ namespace ReactWithAspNetDemo.Server.Controllers
     public class UserController(ISqlSugarClient db) : ControllerBase
     {
         [HttpGet("page-list")]
-        public async Task<List<User>> PageListAsync()
+        public async Task<PageResults<User>> PageListAsync([FromQuery]PageInput input)
         {
+            RefAsync<int> total = 0;
             var list = await db.SqlQueryable<User>("select * from User")
                 .OrderBy(a => a.Id)
-                .ToPageListAsync(1, 2);
+                .ToPageListAsync(input.PageNumber, input.PageSize, total);
 
-            return list;
+            return list.ToPagedList(total, input);
         }
 
         [HttpGet("test")]
