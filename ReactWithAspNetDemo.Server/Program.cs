@@ -32,6 +32,8 @@ builder.AddAuraWeb(option =>
 
 var app = builder.Build();
 
+app.UseRouting();
+
 // 引入Aura
 app.UseAura();
 
@@ -51,7 +53,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapFallbackToFile("/index.html");
+app.MapFallbackToFile("index.html");
 
 
 app.Run();

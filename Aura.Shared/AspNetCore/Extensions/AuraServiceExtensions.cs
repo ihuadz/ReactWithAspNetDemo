@@ -30,7 +30,22 @@ public static class AuraServiceExtensions
 
         // 注册全局异常
         builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
-        builder.Services.AddProblemDetails();
+        builder.Services.AddProblemDetails(option =>
+        {
+            option.CustomizeProblemDetails = (context) =>
+            {
+                var httpContext = context.HttpContext;
+
+                // 统一注入 traceId
+                context.ProblemDetails.Extensions["traceId"] = httpContext.TraceIdentifier;
+
+                // 统一注入 instance (请求路径)
+                context.ProblemDetails.Instance = $"{httpContext.Request.Method} {httpContext.Request.Path}";
+
+                string status = context.ProblemDetails.Status.ToString() ?? "";
+                context.ProblemDetails.Type = $"https://httpstatuses.com/{status}";
+            };
+        });
 
         // 配置 JSON 序列化 (处理字典与属性的小驼峰)
         builder.Services.ConfigureHttpJsonOptions(options =>
@@ -53,6 +68,7 @@ public static class AuraServiceExtensions
     public static WebApplication UseAura(this WebApplication app)
     {
         app.UseExceptionHandler();
+        app.UseStatusCodePages();
         return app;
     }
 }

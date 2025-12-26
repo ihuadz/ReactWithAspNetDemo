@@ -49,7 +49,9 @@ namespace Aura.Shared.Core.Models
         public long TotalPage { get; set; }
         public long PageSize { get; set; } = 10;
         public long PageNumber { get; set; } = 1;
+        public bool HasPrev => PageNumber > 1;
         public bool HasNext => PageNumber < TotalPage;
+        public bool IsFirst => PageNumber == 1;
         public bool IsLast => PageNumber == TotalPage;
         public IEnumerable<T> Rows { get; set; }
 

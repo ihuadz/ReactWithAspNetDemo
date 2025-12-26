@@ -1,19 +1,23 @@
 import useSWR from 'swr';
-import apiClient from '@/api/apiClient';
+import { queryFetcher } from '@/api/fetcher';
 
-// 定义通用 fetcher
-const fetcher = (url) => apiClient.get(url);
-
-export function useReq(url, config = {}) {
-  const { data, error, isLoading, mutate } = useSWR(url, fetcher, {
-    revalidateOnFocus: false,
-    shouldRetryOnError: false,
-    ...config,
-  });
+export function useReq(url, params = null, config = {}) {
+  // 如果 url 为 null，SWR 会停止请求
+  // 将 params 放入 key 数组中，params 改变时自动刷新数据
+  const { data, error, isLoading, mutate } = useSWR(
+    url ? [url, params] : null,
+    ([url, p]) => queryFetcher(url, { params: p }),
+    {
+      revalidateOnFocus: false,
+      shouldRetryOnError: false,
+      keepPreviousData: true,
+      ...config,
+    }
+  );
 
   return {
     data,
-    loading: isLoading,
+    isLoading,
     error,
     refresh: mutate,
   };

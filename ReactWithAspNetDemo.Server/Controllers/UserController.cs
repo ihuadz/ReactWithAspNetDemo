@@ -25,7 +25,7 @@ namespace ReactWithAspNetDemo.Server.Controllers
         [HttpGet("test")]
         public void Test()
         {
-            throw new DomainException("An error occurred!", extensions: new Dictionary<string, object?>()
+            throw new DomainException("This is a customer error!", extensions: new Dictionary<string, object?>()
             {
                 { "ErrCode",1001}
             });

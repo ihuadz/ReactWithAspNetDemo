@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { addToast } from '@heroui/toast';
+import { addToast } from '@heroui/react';
 
 const apiClient = axios.create({
   baseURL: '/api',
@@ -12,20 +12,18 @@ const apiClient = axios.create({
 apiClient.interceptors.response.use(
   (response) => {
     // 成功时：直接返回后端数据
-    return response.data;
+    return response.data ?? {};
   },
   (error) => {
-    console.log(error);
-    // 失败时：解析 GlobalExceptionHandler 返回的 ProblemDetails
+    // 失败时：解析 后端 返回的 ProblemDetails
     const problem = error.response?.data;
-    const status = error.response?.status;
 
     // 提取标题和细节
     const errorTitle = problem?.title || 'Request Failed.';
     const errorDetail = problem?.detail || 'An unexpected error occurred on the server.';
 
     // 拿到后端的 TraceId
-    const traceId = problem?.traceId || 'N/A';
+    // const traceId = problem?.traceId || 'N/A';
 
     // 处理你提到的 Extensions 中的额外信息 (例如 ErrCode)
     const additionalInfo = problem?.additionalInfo;
@@ -33,8 +31,8 @@ apiClient.interceptors.response.use(
 
     addToast({
       title: errorTitle + errCode,
-      description: `${errorDetail} (TraceId: ${traceId})`,
-      color: status >= 500 ? 'danger' : 'warning',
+      description: `${errorDetail}`,
+      color: 'danger',
       variant: 'flat',
       timeout: 6000,
     });

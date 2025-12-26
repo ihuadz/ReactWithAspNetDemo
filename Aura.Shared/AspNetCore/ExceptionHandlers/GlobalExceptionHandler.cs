@@ -25,10 +25,11 @@ namespace Aura.Shared.AspNetCore.ExceptionHandlers
             var (statusCode, title) = exception switch
             {
                 DomainException domainEx => (domainEx.StatusCode, "Business Error"),
-                UnauthorizedAccessException => (StatusCodes.Status401Unauthorized, "Unauthorized"),
-                KeyNotFoundException => (StatusCodes.Status404NotFound, "Resource Not Found"),
                 _ => (StatusCodes.Status500InternalServerError, "Server Error")
             };
+
+            // 设置HTTP状态码
+            httpContext.Response.StatusCode = statusCode;
 
             // 构建 ProblemDetails
             var problemDetails = new ProblemDetails
@@ -36,10 +37,8 @@ namespace Aura.Shared.AspNetCore.ExceptionHandlers
                 Status = statusCode,
                 Title = title,
                 Detail = exception.Message,
-                Instance = $"{httpContext.Request.Method} {httpContext.Request.Path}",
                 Type = $"https://httpstatuses.com/{statusCode}"
             };
-            problemDetails.Extensions["traceId"] = httpContext.TraceIdentifier;
 
 #if (DEBUG)
             // 调试模式返回堆栈信息
