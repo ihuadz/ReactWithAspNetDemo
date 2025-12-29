@@ -1,0 +1,13 @@
+{
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "package.json": "package-lock.json, pnpm*, .editorconfig,.gitattributes,.gitignore,.npmrc,tsconfig.json",
+    ".env": ".env*",
+    "vite.config.ts": "*.config.ts,*.config.js,.prettierrc",
+    "README.md": "README*,LICENSE,CHANGELOG*,vercel.json",
+    "reactwithaspnetdemo.client.esproj": "reactwithaspnetdemo.client.esproj.user"
+  },
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
+}

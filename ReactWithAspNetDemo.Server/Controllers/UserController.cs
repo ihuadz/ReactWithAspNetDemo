@@ -9,10 +9,10 @@ namespace ReactWithAspNetDemo.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController(ISqlSugarClient db) : ControllerBase
+    public class UsersController(ISqlSugarClient db) : ControllerBase
     {
-        [HttpGet("page-list")]
-        public async Task<PageResults<User>> PageListAsync([FromQuery]PageInput input)
+        [HttpGet("pages")]
+        public async Task<PageResults<User>> PagesAsync([FromQuery]PageInput input)
         {
             RefAsync<int> total = 0;
             var list = await db.SqlQueryable<User>("select * from User")
