@@ -1,20 +1,32 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter } from 'react-router';
 
-import MainLayout from "@/layouts/MainLayout";
+import Index from '@/pages';
+import MaterialLayout from '@/templates/material/layouts/material-layout';
+import MaterialHome from '@/templates/material/pages/home';
 
-import UserManage from "@/pages/UserManage";
+import UserManage from '@/pages/users';
 
 export const router = createBrowserRouter([
   {
-    path: "/",
-    element: <MainLayout />,
+    path: '/',
+    element: <Index />,
   },
   {
-    path: "/users",
-    element: <UserManage />,
+    path: '/material',
+    element: <MaterialLayout />,
+    children: [
+      {
+        path: '/material',
+        element: <MaterialHome />,
+      },
+      {
+        path: '/material/users',
+        element: <UserManage />,
+      },
+    ],
   },
   {
-    path: "/login",
-    element: <div>Login Page</div>, // 独立于 MainLayout
+    path: '/login',
+    element: <div>Login Page</div>,
   },
 ]);

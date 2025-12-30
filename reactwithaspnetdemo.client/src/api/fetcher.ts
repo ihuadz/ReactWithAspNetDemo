@@ -3,7 +3,10 @@ import client from '@/api/client';
 /**
  * 查询 Fetcher
  */
-export const queryFetcher = async <T>([url, params]: [string, Record<string, any> | undefined | null]): Promise<T> => {
+export const queryFetcher = async <T>([url, params]: [
+  string,
+  Record<string, any> | undefined | null,
+]): Promise<T> => {
   const res = await client.get<T>(url, {
     params: params || undefined,
   });
@@ -13,12 +16,16 @@ export const queryFetcher = async <T>([url, params]: [string, Record<string, any
 /**
  * 变更 Fetcher (Mutation)
  */
-export const mutationFetcher = async <T = any, R = any>(url: string, { arg }: { arg: R }): Promise<T> => {
+export const mutationFetcher = async <T = any, R = any>(
+  url: string,
+  { arg }: { arg: R },
+): Promise<T> => {
   // 默认 POST
   const { method = 'POST', data } = (arg as any) || {};
 
   // 自定义配置
-  const isCustomConfig = arg && typeof arg === 'object' && ('method' in arg || 'data' in arg);
+  const isCustomConfig =
+    arg && typeof arg === 'object' && ('method' in arg || 'data' in arg);
 
   const res = await client<T>({
     url,
@@ -31,7 +38,10 @@ export const mutationFetcher = async <T = any, R = any>(url: string, { arg }: { 
 /**
  * 上传 Fetcher
  */
-export const uploadFetcher = async <T>(url: string, { arg }: { arg: Record<string, any> }): Promise<T> => {
+export const uploadFetcher = async <T>(
+  url: string,
+  { arg }: { arg: Record<string, any> },
+): Promise<T> => {
   const formData = new FormData();
 
   Object.entries(arg).forEach(([key, value]) => {

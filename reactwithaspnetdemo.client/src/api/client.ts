@@ -1,7 +1,8 @@
-import axios, { AxiosInstance, AxiosResponse, AxiosError } from 'axios';
-import { ProblemDetails } from './base';
-
 import { addToast } from '@heroui/react';
+
+import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
+
+import { ProblemDetails } from './base';
 
 /**
  * 配置 Axios 实例
@@ -27,11 +28,14 @@ client.interceptors.response.use(
     const problem = error.response?.data as ProblemDetails;
 
     const errorTitle = problem?.title || 'Request Failed.';
-    const errorDetail = problem?.detail || 'An unexpected error occurred on the server.';
+    const errorDetail =
+      problem?.detail || 'An unexpected error occurred on the server.';
 
     // 处理额外信息
     const additionalInfo = problem?.additionalInfo;
-    const errCode = additionalInfo?.errCode ? ` (Error Code: ${additionalInfo.errCode})` : '';
+    const errCode = additionalInfo?.errCode
+      ? ` (Error Code: ${additionalInfo.errCode})`
+      : '';
 
     // Toast 显示错误详细，根据UI框架调整调用方法
     addToast({
@@ -43,7 +47,7 @@ client.interceptors.response.use(
     });
 
     return Promise.reject(error);
-  }
+  },
 );
 
 export default client;

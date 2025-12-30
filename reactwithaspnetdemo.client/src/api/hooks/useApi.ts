@@ -1,6 +1,7 @@
 import useSWR, { SWRConfiguration } from 'swr';
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation';
-import { queryFetcher, mutationFetcher } from '@/api/fetcher';
+
+import { mutationFetcher, queryFetcher } from '@/api/fetcher';
 
 /**
  * 用于获取数据 (GET)
@@ -8,7 +9,7 @@ import { queryFetcher, mutationFetcher } from '@/api/fetcher';
 export function useQuery<Data = any, Error = any>(
   url: string | null,
   params: Record<string, any> | null = null,
-  config: SWRConfiguration<Data, Error> = {}
+  config: SWRConfiguration<Data, Error> = {},
 ) {
   const { data, error, isLoading, isValidating, mutate } = useSWR<Data, Error>(
     url ? [url, params] : null,
@@ -18,7 +19,7 @@ export function useQuery<Data = any, Error = any>(
       shouldRetryOnError: false,
       keepPreviousData: true,
       ...config,
-    }
+    },
   );
 
   return {
@@ -35,13 +36,14 @@ export function useQuery<Data = any, Error = any>(
  */
 export function useAction<Data = any, Error = any, Arg = any>(
   url: string,
-  config?: SWRMutationConfiguration<Data, Error, string, Arg>
+  config?: SWRMutationConfiguration<Data, Error, string, Arg>,
 ) {
-  const { trigger, data, error, isMutating, reset } = useSWRMutation<Data, Error, string, Arg>(
-    url,
-    mutationFetcher,
-    config
-  );
+  const { trigger, data, error, isMutating, reset } = useSWRMutation<
+    Data,
+    Error,
+    string,
+    Arg
+  >(url, mutationFetcher, config);
 
   return {
     trigger,

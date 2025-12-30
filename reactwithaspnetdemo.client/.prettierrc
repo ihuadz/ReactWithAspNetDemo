@@ -2,6 +2,8 @@
   "plugins": [
     "@trivago/prettier-plugin-sort-imports"
   ],
+  "singleQuote": true,
+  "jsxSingleQuote": true,
   "importOrder": [
     "^react",
     "^@heroui/(.*)$",
