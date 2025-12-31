@@ -15,6 +15,7 @@ function Index() {
     <ListboxWrapper>
       <Listbox aria-label='Actions' onAction={(key) => navigate(`/${key}`)}>
         <ListboxItem key='material'>Material</ListboxItem>
+        <ListboxItem key='solid'>Solid</ListboxItem>
       </Listbox>
     </ListboxWrapper>
   );

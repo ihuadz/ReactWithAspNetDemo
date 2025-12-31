@@ -133,7 +133,7 @@ function UserManage() {
   // 表格底部：分页控件
   const bottomContent = useMemo(
     () => (
-      <div className='py-2 px-2 flex justify-between items-center'>
+      <div className='flex justify-between items-center'>
         <Pagination
           isCompact
           showControls
@@ -174,55 +174,57 @@ function UserManage() {
 
   /*------------------ Main Render  -----------------*/
   return (
-    <div className='py-6 flex flex-col gap-y-4 px-4 md:px-16 lg:px-24'>
-      <header className='flex flex-col gap-2'>
-        <h1 className='text-2xl font-bold tracking-tight'>User Management</h1>
-        <Alert
-          hideIcon
-          color='primary'
-          variant='flat'
-          description='Standardized data table with SWR fetching and ProblemDetails handling.'
-        />
-      </header>
+    <section className='pt-40 pb-20 md:px-8 2xl:px-0'>
+      <div className='max-w-c-1390 flex flex-col gap-5 mx-auto'>
+        <header className='flex flex-col gap-2'>
+          <h1 className='text-2xl font-bold tracking-tight'>User Management</h1>
+          <Alert
+            hideIcon
+            color='primary'
+            variant='flat'
+            description='Standardized data table with SWR fetching and ProblemDetails handling.'
+          />
+        </header>
 
-      <div className='flex gap-x-2'>
-        <Button
-          color='danger'
-          variant='flat'
-          onPress={() => triggerTest({ id: 1 })}
+        <div className='flex gap-x-2'>
+          <Button
+            color='danger'
+            variant='flat'
+            onPress={() => triggerTest({ id: 1 })}
+          >
+            Test Error Handling
+          </Button>
+        </div>
+
+        <Table
+          aria-label='User data table'
+          topContent={topContent}
+          bottomContent={bottomContent}
         >
-          Test Error Handling
-        </Button>
+          <TableHeader>
+            <TableColumn key='id'>ID</TableColumn>
+            <TableColumn key='username'>USERNAME</TableColumn>
+            <TableColumn key='email'>EMAIL</TableColumn>
+            <TableColumn key='passwordHash'>HASH</TableColumn>
+            <TableColumn key='createdAt'>CREATED</TableColumn>
+            <TableColumn key='isActive'>STATUS</TableColumn>
+          </TableHeader>
+          <TableBody
+            items={userList?.rows ?? []}
+            loadingContent={<Spinner />}
+            loadingState={loadingState}
+          >
+            {(item) => (
+              <TableRow key={item.id}>
+                {(columnKey) => (
+                  <TableCell>{renderCell(item, columnKey)}</TableCell>
+                )}
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
       </div>
-
-      <Table
-        aria-label='User data table'
-        topContent={topContent}
-        bottomContent={bottomContent}
-      >
-        <TableHeader>
-          <TableColumn key='id'>ID</TableColumn>
-          <TableColumn key='username'>USERNAME</TableColumn>
-          <TableColumn key='email'>EMAIL</TableColumn>
-          <TableColumn key='passwordHash'>HASH</TableColumn>
-          <TableColumn key='createdAt'>CREATED</TableColumn>
-          <TableColumn key='isActive'>STATUS</TableColumn>
-        </TableHeader>
-        <TableBody
-          items={userList?.rows ?? []}
-          loadingContent={<Spinner />}
-          loadingState={loadingState}
-        >
-          {(item) => (
-            <TableRow key={item.id}>
-              {(columnKey) => (
-                <TableCell>{renderCell(item, columnKey)}</TableCell>
-              )}
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
-    </div>
+    </section>
   );
 }
 
