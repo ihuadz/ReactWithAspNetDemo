@@ -48,6 +48,7 @@ export default function Navbar() {
     { name: 'Pricing', href: '#pricing' },
     { name: 'Docs', href: '/docs' },
     { name: 'Users', href: '/material/users' },
+    { name: 'Dify', href: '/material/dify' },
   ];
 
   return (

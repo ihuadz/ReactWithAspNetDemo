@@ -14,6 +14,7 @@ import SolidHome from '@/templates/solid/pages/home';
 import SupportPage from '@/templates/solid/pages/support';
 import { RouteMetadata } from '@/types/router';
 
+import DifyIframePage from '@/pages/dify';
 import UserManage from '@/pages/users';
 
 export const router = createBrowserRouter([
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
       {
         path: '/material/users',
         element: <UserManage />,
+      },
+      {
+        path: '/material/dify',
+        element: <DifyIframePage />,
       },
     ],
   },
@@ -105,6 +110,10 @@ export const router = createBrowserRouter([
       {
         path: '/solid/users',
         element: <UserManage />,
+      },
+      {
+        path: '/solid/dify',
+        element: <DifyIframePage />,
       },
     ],
   },

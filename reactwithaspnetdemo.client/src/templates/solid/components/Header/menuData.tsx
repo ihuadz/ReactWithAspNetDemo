@@ -80,6 +80,12 @@ const menuData: Menu[] = [
     newTab: false,
     path: '/solid/users',
   },
+  {
+    id: 6,
+    title: 'Dify',
+    newTab: false,
+    path: '/solid/dify',
+  },
 ];
 
 export default menuData;

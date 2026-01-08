@@ -7,6 +7,7 @@ import { HeroUIProvider, ToastProvider, cn } from '@heroui/react';
 import '@fontsource-variable/inter';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 
+import DifyChatbot from './components/DifyChatbot';
 import './index.css';
 import { router } from './routes';
 
@@ -16,7 +17,7 @@ if (!container) throw new Error('Root element not found');
 const root = createRoot(container);
 root.render(
   <StrictMode>
-    <div className='font-inter'>
+    <div className='font-inter min-h-screen'>
       <HeroUIProvider>
         <NextThemesProvider attribute='class' defaultTheme='light'>
           <ToastProvider
@@ -26,6 +27,7 @@ root.render(
           <RouterProvider router={router} />
         </NextThemesProvider>
       </HeroUIProvider>
+      <DifyChatbot />
     </div>
   </StrictMode>,
 );
